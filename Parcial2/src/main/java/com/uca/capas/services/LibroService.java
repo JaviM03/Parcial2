@@ -1,4 +1,4 @@
-package com.uca.capas.dao;
+package com.uca.capas.services;
 
 import java.util.List;
 
@@ -6,8 +6,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.uca.capas.domain.Libro;
 
-
-public interface LibroDAO {
+public interface LibroService {
 	
 	public List<Libro> findAll() throws DataAccessException;
 	

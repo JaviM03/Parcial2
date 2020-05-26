@@ -43,10 +43,10 @@ public class Libro {
 	private String s_autor;
 	
 	@Transient
-	private String c_categoria;
+	private Integer c_categoria;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="f_fecha_ingreso")
+	@Column(name="f_ingreso")
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date f_ingreso;
 	
@@ -91,11 +91,11 @@ public class Libro {
 		this.s_autor = s_autor;
 	}
 
-	public String getC_categoria() {
+	public Integer getC_categoria() {
 		return c_categoria;
 	}
 
-	public void setC_categoria(String c_categoria) {
+	public void setC_categoria(Integer c_categoria) {
 		this.c_categoria = c_categoria;
 	}
 
