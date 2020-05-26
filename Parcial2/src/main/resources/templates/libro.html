@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1> Ingresar nuevo libro</h1>
+	<form th:action="@{/saveLibro}" th:object="${libro}" method="post">
+	<input type="hidden" name="c_libro" class="form-control" th:field="*{c_libro}" />
+	
+		<label> Titulo_ </label>
+		<input th:field="*{s_titulo}" type="text">
+		<span th:errors="*{s_titulo}" style="color:#E81505"></span><br>
+		
+		<label> Autor: </label>
+		<input th:field="*{s_autor}" type="text"/>
+		<span th:errors="*{s_autor}" style="color:#E81505"></span><br>
+		
+		
+		
+		<label>Activo</label>
+		<input type="radio" th:field ="*{estado}" th:value="${true}">
+		<label>Inactivo</label>
+		<input type="radio" th:field ="*{estado}" th:value="${false}"><br>
+		
+		<label> ISBN: </label>
+		<input th:field="*{s_isbn}" type="text"/>
+		<span th:errors="*{s_isbn}" style="color:#E81505"></span><br>
+		
+		<label for="categoria"> Categoria:</label>
+		<select name="categoria" id="categoria" th:field="*{c_categoria}">
+            <option th:each="categoria, row: ${categorias}" th:value="${categoria.c_categoria}" th:text="${categoria.s_categoria}"></option>
+        </select> <br>
+		
+		<input type="submit" value="Guardar">
+		
+	</form>
+	
+	
+
+</body>
+</html>

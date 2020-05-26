@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.uca.capas.domain.Libro;
 import com.uca.capas.services.CategoriaService;
 import com.uca.capas.services.LibroService;
 
+@Controller
 public class MainController {
 	
 	@Autowired
@@ -27,12 +29,7 @@ public class MainController {
 	public ModelAndView initMain() {
 		ModelAndView mav = new ModelAndView();
 		
-		Libro libro=new Libro();
-		List<Categoria> categorias= null;
-		categorias=categoriaService.findAll();
 		
-		mav.addObject("libros", libro);
-		mav.addObject("categoria",categorias);
 		mav.setViewName("index");
 		
 		return mav;
@@ -48,7 +45,7 @@ public class MainController {
 			e.printStackTrace();
 		}
 		mav.addObject("libros",libros);
-		mav.setViewName("listaLibros");
+		mav.setViewName("verLibro");
 		return mav;
 	}
 	
@@ -63,7 +60,8 @@ public class MainController {
 			List<Categoria> categorias =null;
 			
 			mav.addObject("categoria",categoria);
-			mav.setViewName("resultado");
+			mav.addObject("resultado", 1);
+			mav.setViewName("index");
 		}
 		return mav;
 	}
@@ -71,18 +69,43 @@ public class MainController {
 	@PostMapping("/saveLibro")
 	public ModelAndView saveLibro(@Valid @ModelAttribute Libro libro, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
-		List<Categoria> categorias= null;
-		categorias=categoriaService.findAll();
+		
 		if(result.hasErrors()) {
-			mav.setViewName("agregarLibro");
+			List<Categoria> categorias = null;
+			categorias=categoriaService.findAll();
+			mav.addObject("categorias",categorias);
+			mav.setViewName("libro");
 		} else {
 			libroService.save(libro);
-			List<Libro> libros =null;
+			libro = new Libro();
+			mav.addObject("resultado", 2);
+			mav.setViewName("index");
 			
-			mav.addObject("libro",libro);
-			mav.addObject("categorias", categorias);
-			mav.setViewName("resultado");
+			
 		}
+		return mav;
+	}
+	
+	@RequestMapping("/categoria")
+	public ModelAndView categorias( @ModelAttribute Categoria categoria) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("categoria", categoria);
+		mav.setViewName("categoria");
+		
+		return mav;
+	}
+	@RequestMapping("/libros")
+	public ModelAndView libro( @ModelAttribute Libro libro) {
+		ModelAndView mav = new ModelAndView();
+
+		
+		List<Categoria> categorias = categoriaService.findAll();
+		
+		mav.addObject("categorias", categorias);
+		mav.addObject("libro", libro);
+		mav.setViewName("libro");
+		
 		return mav;
 	}
 }

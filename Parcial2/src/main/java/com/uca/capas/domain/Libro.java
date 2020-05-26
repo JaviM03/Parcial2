@@ -32,12 +32,11 @@ public class Libro {
 	private Integer c_libro;
 	
 	
-	@Max(value=500,message="Este campo tiene una maximo de 500 caracteres")
-	@NotEmpty(message="Este campo no puede ser vacio")
+	
 	@Column(name="s_titulo")
 	private String s_titulo;
 	
-	@Max(value=150,message="Este campo tiene una maximo de 150 caracteres")
+	
 	@NotEmpty(message="Este campo no puede ser vacio")
 	@Column(name="s_autor")
 	private String s_autor;
@@ -53,11 +52,23 @@ public class Libro {
 	@Column(name="b_estado")
 	private Boolean estado;
 	
+	
+	@Column(name="s_isbn")
+	private String s_isbn;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="c_categoria")
 	private Categoria categoria;
 
 	
+
+	public String getS_isbn() {
+		return s_isbn;
+	}
+
+	public void setS_isbn(String s_isbn) {
+		this.s_isbn = s_isbn;
+	}
 
 	public Categoria getCategoria() {
 		return categoria;
@@ -107,16 +118,17 @@ public class Libro {
 		this.f_ingreso = f_ingreso;
 	}
 
-	public boolean isB_estado() {
+
+
+	
+	public Boolean getEstado() {
 		return estado;
 	}
 
-	public void setB_estado(boolean b_estado) {
-		this.estado = b_estado;
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
 	}
-	
 
-	
 	public Libro() {
 		
 	}
